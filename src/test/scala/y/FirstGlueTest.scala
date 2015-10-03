@@ -53,4 +53,10 @@ class FirstGlueTest extends FunSuite with Matchers {
     doubleAll(numbers) should equal(List(2, 4, 8, 12, 16, 20))
   }
 
+  test("Map") {
+    import y.Map._
+
+    doubleAll(numbers) should equal(List(2, 4, 8, 12, 16, 20))
+  }
+
 }

@@ -1,5 +1,7 @@
 package y
 
+import y.DoubleAll
+
 object SumProblem {
   def sum(list: List[Int]): Int = list match {
     case Nil => 0
@@ -67,4 +69,19 @@ object DoubleAll {
   def <+>(el: Int)(list: List[Int]) = double(el) :: list
 
   def doubleAll: List[Int] => List[Int] = reduce(<+>)(List.empty[Int])
+}
+
+object Map {
+
+  import Reduce._
+
+  def map[T](f: T => T) = {
+    def <+>(el: T)(list: List[T]) = f(el) :: list
+
+    reduce(<+>)(List.empty[T])(_)
+  }
+
+  def double(x: Int) = 2 * x
+
+  def doubleAll: List[Int] => List[Int] = map(double)
 }
