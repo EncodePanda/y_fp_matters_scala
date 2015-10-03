@@ -32,6 +32,8 @@ class FirstGlueTest extends FunSuite with Matchers {
     lgth(words1) should equal(3)
     lgth(words1 ++ words2) should equal(6)
 
+    doubleAll(numbers) should equal(List(2, 4, 8, 12, 16, 20))
+
   }
 
 }

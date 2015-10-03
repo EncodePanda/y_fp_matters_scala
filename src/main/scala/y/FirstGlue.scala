@@ -36,4 +36,9 @@ object FirstGlue {
 
   def lgth[T]: List[T] => Int = reduce(<+>)(0)
 
+  def double(x: Int) = 2 * x
+
+  def <++>(el: Int)(list: List[Int]) = double(el) :: list
+
+  def doubleAll: List[Int] => List[Int] = reduce(<++>)(List.empty[Int])
 }
