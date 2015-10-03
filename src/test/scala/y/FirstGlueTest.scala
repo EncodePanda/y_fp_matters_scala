@@ -4,36 +4,53 @@ import org.scalatest.{Matchers, FunSuite}
 
 class FirstGlueTest extends FunSuite with Matchers {
 
-  import y.FirstGlue._
+  val numbers = List(1, 2, 4, 6, 8, 10)
 
-  test("this and that") {
+  val booleans = List(true, false, false, true, false)
 
-    val numbers = List(1, 2, 4, 6, 8, 10)
+  val words1 = List("first", "second", "third")
+  val words2 = List("dog", "cat", "tortoise")
 
-    simpleSum(numbers) should equal(31)
+  test("SumProblem") {
+    import y.SumProblem._
+
+    sum(numbers) should equal(31)
+  }
+
+  test("ArithmeticsOnReduce") {
+    import y.ArithmeticsOnReduce._
 
     sum(numbers) should equal(31)
 
     product(numbers) should equal(3840)
+  }
 
-    val booleans = List(true, false, false, true, false)
+  test("BooleanOnReduce") {
+    import y.BooleanOnReduce._
 
     allTrue(booleans) should be(false)
 
     anyTrue(booleans) should be(true)
+  }
 
+  test("ConcatenateLists") {
+    import y.ConcatenateLists._
 
-    val words1 = List("first", "second", "third")
-    val words2 = List("dog", "cat", "tortoise")
+    <++>(words1, words2) should equal(List("first", "second", "third", "dog", "cat", "tortoise"))
+  }
 
-    words1 ++ words2 should equal(List("first", "second", "third", "dog", "cat", "tortoise"))
+  test("Length") {
+    import y.Length._
 
     lgth(numbers) should equal(6)
     lgth(words1) should equal(3)
     lgth(words1 ++ words2) should equal(6)
+  }
+
+  test("DoubleAll") {
+    import y.DoubleAll._
 
     doubleAll(numbers) should equal(List(2, 4, 8, 12, 16, 20))
-
   }
 
 }
