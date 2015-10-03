@@ -32,4 +32,8 @@ object FirstGlue {
 
   def ++[T](a: List[T], b: List[T]): List[T] = reduce(:::[T])(a)(b)
 
+  def <+>[T](el: T)(len: Int) = 1 + len
+
+  def lgth[T]: List[T] => Int = reduce(<+>)(0)
+
 }
