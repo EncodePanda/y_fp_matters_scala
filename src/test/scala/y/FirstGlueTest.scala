@@ -23,6 +23,11 @@ class FirstGlueTest extends FunSuite with Matchers {
     anyTrue(booleans) should be(true)
 
 
+    val words1 = List("first", "second", "third")
+    val words2 = List("dog", "cat", "tortoise")
+
+    words1 ++ words2 should equal(List("first", "second", "third", "dog", "cat", "tortoise"))
+
   }
 
 }

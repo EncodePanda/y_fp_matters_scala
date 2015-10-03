@@ -2,8 +2,6 @@ package y
 
 object FirstGlue {
 
-  def :::[T](head: T, tail: List[T]): List[T] = head :: tail
-
   def simpleSum(list: List[Int]): Int = list match {
     case Nil => 0
     case num :: tail => num + sum(tail)
@@ -30,6 +28,13 @@ object FirstGlue {
 
   def allTrue: List[Boolean] => Boolean = reduce(and)(true)
 
-  //  def ++[T](a: List[T], b: List[T]): List[T] = reduce(:::)(a)(b)
+  def :::[T](head: T, tail: List[T]): List[T] = head :: tail
+
+  def ++[T](a: List[T], b: List[T]): List[T] = reduce(:::[T])(a)(b)
+
+  //  def len
+  //
+  //  def length[T]: List[T] => Int = reduce(:::[T])(len)(0)
+
 
 }
