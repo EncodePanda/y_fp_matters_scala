@@ -28,6 +28,10 @@ class FirstGlueTest extends FunSuite with Matchers {
 
     words1 ++ words2 should equal(List("first", "second", "third", "dog", "cat", "tortoise"))
 
+    lgth(numbers) should equal(6)
+    lgth(words1) should equal(3)
+    lgth(words1 ++ words2) should equal(6)
+
   }
 
 }
