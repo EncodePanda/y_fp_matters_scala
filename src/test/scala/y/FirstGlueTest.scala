@@ -59,4 +59,14 @@ class FirstGlueTest extends FunSuite with Matchers {
     doubleAll(numbers) should equal(List(2, 4, 8, 12, 16, 20))
   }
 
+  test("SumTree") {
+    import y.Tree._
+    import y.SumTree._
+
+
+    val sampleTree = TreeOf(1, List(TreeOf(2, Nil), TreeOf(3, List(TreeOf(4, Nil)))))
+
+    sumtree(sampleTree) should equal(10)
+  }
+
 }

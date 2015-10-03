@@ -85,3 +85,31 @@ object Map {
 
   def doubleAll: List[Int] => List[Int] = map(double)
 }
+
+case class TreeOf[T](label: T, subtrees: List[TreeOf[T]])
+
+object Tree {
+
+  private def _redtree[T, K](op1: T => K => K)
+                            (op2: K => K => K)
+                            (zero: K)
+                            (subtrees: List[TreeOf[T]]): K = subtrees match {
+    case Nil => zero
+    case subtree :: rest => op2(redtree(op1)(op2)(zero)(subtree))(_redtree(op1)(op2)(zero)(rest))
+  }
+
+  def redtree[T, K](op1: T => K => K)
+                   (op2: K => K => K)
+                   (zero: K)
+                   (tree: TreeOf[T]): K = tree match {
+    case TreeOf(label, subtrees) => op1(label)(_redtree[T, K](op1)(op2)(zero)(subtrees))
+  }
+}
+
+object SumTree {
+
+  import Tree._
+  import ArithmeticsOnReduce.plus
+
+  def sumtree = redtree(plus)(plus)(0)(_)
+}
