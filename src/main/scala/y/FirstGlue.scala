@@ -88,19 +88,13 @@ case class TreeOf[T](label: T, subtrees: List[TreeOf[T]])
 
 object Tree {
 
-  private def _redtree[T, K](op1: T => K => K)
-                            (op2: K => K => K)
-                            (zero: K)
-                            (subtrees: List[TreeOf[T]]): K = subtrees match {
+  private def _redtree[T, K, M](op1: T => K => M)(op2: M => K => K)(zero: K)(subtrees: List[TreeOf[T]]): K = subtrees match {
     case Nil => zero
     case subtree :: rest => op2(redtree(op1)(op2)(zero)(subtree))(_redtree(op1)(op2)(zero)(rest))
   }
 
-  def redtree[T, K](op1: T => K => K)
-                   (op2: K => K => K)
-                   (zero: K)
-                   (tree: TreeOf[T]): K = tree match {
-    case TreeOf(label, subtrees) => op1(label)(_redtree[T, K](op1)(op2)(zero)(subtrees))
+  def redtree[T, K,M](op1: T => K => M)(op2: M => K => K)(zero: K)(tree: TreeOf[T]): M = tree match {
+    case TreeOf(label, subtrees) => op1(label)(_redtree[T, K,M](op1)(op2)(zero)(subtrees))
   }
 }
 
@@ -112,33 +106,26 @@ object SumTree {
   def sumtree = redtree(plus)(plus)(0)(_)
 }
 
-
 object LabelsTree {
 
   import Tree._
   import ConcatenateLists.:::
   import ConcatenateLists.<++>
 
-  def labels[T]: TreeOf[T] => List[T] = {
-//    def <+>(label: T)(subtrees: List[TreeOf[K]]) = TreeOf(f(label), subtrees)
-
-
-    redtree(:::[T])(<++>[T])(List.empty[T])
-  }
+  def labels[T]: TreeOf[T] => List[T] = redtree(:::[T])(<++>[T])(List.empty[T])
 
 }
 
+object MapTree {
 
-//object MapTree {
-///
-//  import Tree._
-//  import ConcatenateLists.:::
+  import Tree._
+  import ConcatenateLists.:::
 
- // def mapTree[T, K](f: T => K): TreeOf[T] => TreeOf[K] = {
+  def mapTree[T, K](f: T => K): TreeOf[T] => TreeOf[K] = {
 
-  ///  def <+>(label: T)(subtrees: List[TreeOf[K]]) = TreeOf(f(label), subtrees)
+    def <+>(label: T)(subtrees: List[TreeOf[K]]) = TreeOf(f(label), subtrees)
 
-  //  redtree(<+>)(:::[K])(List.empty[K])(_)
- // }
-
+    redtree(<+>)(:::[TreeOf[K]])(List.empty[TreeOf[K]])
+  }
+}
 

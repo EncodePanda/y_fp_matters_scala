@@ -76,4 +76,14 @@ class FirstGlueTest extends FunSuite with Matchers {
 
     labels(sampleTree) should equal(List(1,2,3,4))
   }
+
+  test("MapTree") {
+    import y.MapTree.mapTree
+
+    val sampleTree = TreeOf(1, List(TreeOf(2, Nil), TreeOf(3, List(TreeOf(4, Nil)))))
+
+    (mapTree((n:Int) => n.toString)(sampleTree)) should
+              equal(TreeOf("1", List(TreeOf("2", Nil), TreeOf("3", List(TreeOf("4", Nil))))))
+  }
+
 }
