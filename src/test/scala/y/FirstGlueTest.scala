@@ -36,7 +36,7 @@ class FirstGlueTest extends FunSuite with Matchers {
   test("ConcatenateLists") {
     import y.ConcatenateLists._
 
-    <++>(words1, words2) should equal(List("first", "second", "third", "dog", "cat", "tortoise"))
+    <++>(words1)(words2) should equal(List("first", "second", "third", "dog", "cat", "tortoise"))
   }
 
   test("Length") {
@@ -69,4 +69,11 @@ class FirstGlueTest extends FunSuite with Matchers {
     sumtree(sampleTree) should equal(10)
   }
 
+  test("LabelsTree") {
+    import y.LabelsTree._
+
+    val sampleTree = TreeOf(1, List(TreeOf(2, Nil), TreeOf(3, List(TreeOf(4, Nil)))))
+
+    labels(sampleTree) should equal(List(1,2,3,4))
+  }
 }

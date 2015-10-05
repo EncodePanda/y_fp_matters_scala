@@ -1,7 +1,5 @@
 package y
 
-import y.DoubleAll
-
 object SumProblem {
   def sum(list: List[Int]): Int = list match {
     case Nil => 0
@@ -48,7 +46,7 @@ object ConcatenateLists {
 
   def :::[T](head: T)(tail: List[T]): List[T] = head :: tail
 
-  def <++>[T](a: List[T], b: List[T]): List[T] = reduce(:::[T])(b)(a)
+  def <++>[T](a: List[T])(b: List[T]): List[T] = reduce(:::[T])(b)(a)
 }
 
 object Length {
@@ -113,3 +111,34 @@ object SumTree {
 
   def sumtree = redtree(plus)(plus)(0)(_)
 }
+
+
+object LabelsTree {
+
+  import Tree._
+  import ConcatenateLists.:::
+  import ConcatenateLists.<++>
+
+  def labels[T]: TreeOf[T] => List[T] = {
+//    def <+>(label: T)(subtrees: List[TreeOf[K]]) = TreeOf(f(label), subtrees)
+
+
+    redtree(:::[T])(<++>[T])(List.empty[T])
+  }
+
+}
+
+
+//object MapTree {
+///
+//  import Tree._
+//  import ConcatenateLists.:::
+
+ // def mapTree[T, K](f: T => K): TreeOf[T] => TreeOf[K] = {
+
+  ///  def <+>(label: T)(subtrees: List[TreeOf[K]]) = TreeOf(f(label), subtrees)
+
+  //  redtree(<+>)(:::[K])(List.empty[K])(_)
+ // }
+
+
