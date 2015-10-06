@@ -60,9 +60,7 @@ class FirstGlueTest extends FunSuite with Matchers {
   }
 
   test("SumTree") {
-    import y.Tree._
     import y.SumTree._
-
 
     val sampleTree = TreeOf(1, List(TreeOf(2, Nil), TreeOf(3, List(TreeOf(4, Nil)))))
 
